@@ -45,7 +45,7 @@ func _process(delta):
 
         placeholder.length = min(
             targetDistance.length(),
-            placeholder.get_parent().get_parent().thickness * treeData.maxLengthFromThickness
+            treeData.maxGrowthLength
             )
 
 
@@ -74,12 +74,6 @@ func createPlaceholder():
     placeholder = rootPlaceholderObject.instance()
     children.add_child(placeholder)
 
-    # set the placeholder thickness
-    placeholder.thickness = clamp(
-        rootToGrowFrom.thickness * treeData.newRootThicknessMultiplier,
-        1,
-        children.get_child_count() + 1
-        )
 
 
 func createRootFromPlaceholder():
@@ -109,17 +103,9 @@ func createRootFromPlaceholder():
     # copy the dimensions and orientation
     newRoot.rotation_degrees = placeholder.rotation_degrees
     newRoot.length = placeholder.length
-    newRoot.thickness = placeholder.thickness
 
     # remove the placeholder
     placeholder.queue_free()
-
-    # increase the thickness of the parent roots
-    var parent = newRoot.get_parent().get_parent()
-
-    while parent and parent is Branch:
-        parent.thickness *= treeData.parentRootThicknessMultiplier
-        parent = parent.get_parent().get_parent()
 
 
 func cancelPlaceholder():

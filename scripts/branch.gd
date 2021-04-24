@@ -16,6 +16,16 @@ export(float) var length
 export(float) var thickness
 
 func _process(delta):
+    updatePosition()
+    updateThickness()
+
+
+# checks whether this is last branch in the tree
+func isLeaf() -> bool:
+    return $children.get_child_count() == 0
+
+
+func updatePosition():
     # update the relative position of this branch based on the length
     # of the parent
 
@@ -36,9 +46,12 @@ func _process(delta):
 
     position.y = parent.growDirection * parent.length
 
-# checks whether this is last branch in the tree
-func isLeaf() -> bool:
-    return $children.get_child_count() == 0
+func updateThickness():
+    # calculate the thickness based on children
+    thickness = 1.5
+    for childBranch in $children.get_children():
+        # super HACK to avoid taking placeholders into account
+        if childBranch.has_node('placeholder'):
+            continue
 
-
-
+        thickness += childBranch.thickness * 0.5
