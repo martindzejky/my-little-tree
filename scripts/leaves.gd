@@ -1,5 +1,7 @@
 extends Node2D
 
+export(NodePath) var branchSpritePath
+
 func _process(delta):
     var parent: Branch = get_parent()
     assert(parent is Branch, "leaves are not in a branch")
@@ -12,3 +14,9 @@ func _process(delta):
 
     # rotate them so they are always straight
     $sprite.rotation_degrees = -parent.rotation_degrees
+
+    # copy the color of the branch sprite
+    var branchSprite = get_node(branchSpritePath)
+    assert(branchSprite is Sprite, "branch sprite path missing")
+
+    $sprite.modulate = branchSprite.modulate

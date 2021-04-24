@@ -9,6 +9,7 @@ growDirection = -1
 
 [node name="leaves" type="Node2D" parent="." index="2"]
 script = ExtResource( 3 )
+branchSpritePath = NodePath("../sprite")
 
 [node name="sprite" type="Sprite" parent="leaves" index="0"]
 texture = ExtResource( 2 )

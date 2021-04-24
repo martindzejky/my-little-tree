@@ -22,10 +22,10 @@ func _process(delta):
 func _on_collider_mouse_entered():
     var sprite = get_node(spriteToModulatePath) as Sprite
     assert(sprite is Sprite)
-    sprite.self_modulate = Color.red
+    sprite.modulate = Color.red
 
 
 func _on_collider_mouse_exited():
     var sprite = get_node(spriteToModulatePath) as Sprite
     assert(sprite is Sprite)
-    sprite.self_modulate = Color.white
+    sprite.modulate = Color.white
