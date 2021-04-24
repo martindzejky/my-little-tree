@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://sprites/wood.png" type="Texture" id=1]
 [ext_resource path="res://scripts/branch.gd" type="Script" id=2]
 [ext_resource path="res://scripts/branchSprite.gd" type="Script" id=3]
+[ext_resource path="res://scripts/branchCollider.gd" type="Script" id=4]
 
 [node name="root" type="Node2D"]
 script = ExtResource( 2 )
@@ -13,4 +14,12 @@ region_enabled = true
 region_rect = Rect2( 0, 0, 8, 8 )
 script = ExtResource( 3 )
 
+[node name="collider" type="Area2D" parent="."]
+script = ExtResource( 4 )
+spriteToModulatePath = NodePath("../sprite")
+
+[node name="shape" type="CollisionShape2D" parent="collider"]
+
 [node name="children" type="Node2D" parent="."]
+[connection signal="mouse_entered" from="collider" to="collider" method="_on_collider_mouse_entered"]
+[connection signal="mouse_exited" from="collider" to="collider" method="_on_collider_mouse_exited"]

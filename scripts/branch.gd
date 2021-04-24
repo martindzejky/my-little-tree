@@ -36,3 +36,6 @@ func _process(delta):
 # checks whether this is last branch in the tree
 func isLeaf() -> bool:
     return $children.get_child_count() == 0
+
+
+

@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://objects/branch.tscn" type="PackedScene" id=1]
 [ext_resource path="res://objects/root.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scripts/player/rootGrowth.gd" type="Script" id=3]
 
 [node name="root" type="Node2D"]
 
@@ -31,6 +32,11 @@ thickness = 2.0
 rotation = 0.349066
 length = 4.0
 thickness = 1.5
+
+[node name="player" type="Node2D" parent="."]
+
+[node name="rootGrowth" type="Node2D" parent="player"]
+script = ExtResource( 3 )
 
 [editable path="branches/trunk"]
 
