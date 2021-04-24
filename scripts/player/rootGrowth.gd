@@ -38,10 +38,15 @@ func _process(delta):
         placeholder.global_rotation_degrees = rad2deg(targetDistance.angle()) - 90
 
         # clamp the rotation degrees to prevent sharp turns
-        while placeholder.rotation_degrees > 360:
+        if placeholder.rotation_degrees > 180:
             placeholder.rotation_degrees -= 360
+        if placeholder.rotation_degrees < -180:
+            placeholder.rotation_degrees += 360
 
         placeholder.rotation_degrees = clamp(placeholder.rotation_degrees, -treeData.maxGrowthAngle, treeData.maxGrowthAngle)
+
+        # prevent roots from growing upwards
+        placeholder.global_rotation_degrees = clamp(placeholder.global_rotation_degrees, -90, 90)
 
         placeholder.length = min(
             targetDistance.length(),

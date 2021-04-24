@@ -16,7 +16,7 @@ func _process(delta):
         $shape.set_shape(shape)
 
 
-    shape.extents = Vector2(root.thickness / 2, root.length / 2)
+    shape.extents = Vector2(root.thickness / 2 + 1, root.length / 2 + 1)
 
 
 

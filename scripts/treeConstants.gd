@@ -19,8 +19,6 @@ export(float) var stabilityGainPerBranch
 export(float) var stabilityGainPerRoot
 
 # ROOT GROWTH
-export(float) var newRootThicknessMultiplier
-export(float) var parentRootThicknessMultiplier
 export(float) var minGrowthLength
 export(float) var maxGrowthLength
 export(float) var maxGrowthAngle

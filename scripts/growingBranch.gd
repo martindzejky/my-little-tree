@@ -30,7 +30,7 @@ func spawnNewBranches():
         chanceMultiplier = 0.8
 
     # small chance to spawn a new branch
-    if randf() < treeData.branchSpawnChance * chanceMultiplier:
+    if randf() < treeData.branchSpawnChance * chanceMultiplier / 1000:
         var newBranch = load(branchToSpawnFile).instance() as Branch
 
 
