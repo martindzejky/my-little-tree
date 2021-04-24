@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://sprites/wood.png" type="Texture" id=1]
+[ext_resource path="res://scripts/branch.gd" type="Script" id=2]
+[ext_resource path="res://scripts/branchSprite.gd" type="Script" id=3]
+
+[node name="root" type="Node2D"]
+script = ExtResource( 2 )
+
+[node name="sprite" type="Sprite" parent="."]
+texture = ExtResource( 1 )
+offset = Vector2( 0, -10 )
+region_enabled = true
+region_rect = Rect2( 0, 0, 8, 20 )
+script = ExtResource( 3 )
+
+[node name="children" type="Node2D" parent="."]
