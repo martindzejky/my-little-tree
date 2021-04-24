@@ -1,17 +1,14 @@
 [gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://sprites/wood.png" type="Texture" id=1]
-[ext_resource path="res://scripts/branch.gd" type="Script" id=2]
-[ext_resource path="res://scripts/branchSprite.gd" type="Script" id=3]
+[ext_resource path="res://objects/branchBase.tscn" type="PackedScene" id=1]
+[ext_resource path="res://sprites/leaves.png" type="Texture" id=2]
+[ext_resource path="res://scripts/leaves.gd" type="Script" id=3]
 
-[node name="root" type="Node2D"]
-script = ExtResource( 2 )
+[node name="root" instance=ExtResource( 1 )]
 growDirection = -1
 
-[node name="sprite" type="Sprite" parent="."]
-texture = ExtResource( 1 )
-region_enabled = true
-region_rect = Rect2( 0, 0, 8, 8 )
+[node name="leaves" type="Node2D" parent="." index="2"]
 script = ExtResource( 3 )
 
-[node name="children" type="Node2D" parent="."]
+[node name="sprite" type="Sprite" parent="leaves" index="0"]
+texture = ExtResource( 2 )

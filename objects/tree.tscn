@@ -11,13 +11,13 @@
 length = 12.0
 thickness = 3.0
 
-[node name="branch" parent="branches/trunk/children" index="0" instance=ExtResource( 1 )]
-rotation = 0.349066
+[node name="branch1" parent="branches/trunk/children" index="0" instance=ExtResource( 1 )]
+rotation = 0.436332
 length = 6.0
 thickness = 2.0
 
 [node name="branch2" parent="branches/trunk/children" index="1" instance=ExtResource( 1 )]
-rotation = -0.523599
+rotation = -0.314159
 length = 4.0
 thickness = 1.5
 
