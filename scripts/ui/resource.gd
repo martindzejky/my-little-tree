@@ -5,7 +5,7 @@ export(String) var resourceName
 export(String) var resourceMaxName
 
 func _process(delta):
-    var currentValue = MyTree.get(resourceName)
-    var maxValue = MyTree.get(resourceMaxName)
+    var currentValue = int(MyTree.get(resourceName))
+    var maxValue = int(MyTree.get(resourceMaxName))
 
     $container/value.text = String(currentValue) + ' / ' + String(maxValue)

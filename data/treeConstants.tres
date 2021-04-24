@@ -1,0 +1,14 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://scripts/treeConstants.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+maxEnergyPerBranch = 4.0
+maxEnergyPerRoot = 1.0
+energyGainPerLeaf = 0.5
+maxWaterPerBranch = 1.0
+maxWaterPerRoot = 2.0
+maxStabilityPerRoot = 10.0
+stabilityGainPerBranch = -0.2
+stabilityGainPerRoot = 2.0

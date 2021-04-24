@@ -18,10 +18,16 @@ _global_script_classes=[ {
 "class": "MainCamera",
 "language": "GDScript",
 "path": "res://scripts/camera.gd"
+}, {
+"base": "Resource",
+"class": "TreeConstants",
+"language": "GDScript",
+"path": "res://scripts/treeConstants.gd"
 } ]
 _global_script_class_icons={
 "Branch": "",
-"MainCamera": ""
+"MainCamera": "",
+"TreeConstants": ""
 }
 
 [application]

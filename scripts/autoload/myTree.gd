@@ -20,6 +20,13 @@ var maxWater = 0
 var currentStability = 0
 var maxStability = 0
 
+# MAGIC numbers of updating the resources
+
+var treeData: Resource
+
+func _init():
+    treeData = preload('res://data/treeConstants.tres')
+
 
 # UPDATE stats
 func _process(delta):
@@ -29,3 +36,54 @@ func _process(delta):
     var tree = treeNodes[0]
     var branches = tree.get_node("branches")
     var roots = tree.get_node("roots")
+
+    # calculate maximum values
+    maxEnergy = getBranchValueIn(branches) * treeData.maxEnergyPerBranch + getBranchValueIn(roots) * treeData.maxEnergyPerRoot
+    maxWater = getBranchValueIn(branches) * treeData.maxWaterPerBranch + getBranchValueIn(roots) * treeData.maxWaterPerRoot
+    maxStability = getBranchValueIn(roots) * treeData.maxStabilityPerRoot
+
+    # update current values
+
+    var energyGain = delta * getLeafValueIn(branches) * treeData.energyGainPerLeaf
+    currentEnergy = clamp(
+        currentEnergy + energyGain,
+        0, maxEnergy)
+
+    # TODO: water
+
+    var stabilityGain = \
+        delta * \
+            getBranchValueIn(branches) * treeData.stabilityGainPerBranch \
+        + delta * \
+            getBranchValueIn(roots) * treeData.stabilityGainPerRoot
+
+    currentStability = clamp(
+        currentStability + stabilityGain,
+        0, maxStability)
+
+
+func getBranchValueIn(node: Node2D) -> float:
+    var branches = node.get_children()
+    var counter = 0.0
+
+    for branch in branches:
+        counter += branch.thickness * branch.length
+        counter += getBranchValueIn(branch.get_node('children'))
+
+    return counter
+
+
+func getLeafValueIn(node: Node2D) -> float:
+    var branches = node.get_children()
+    var counter = 0.0
+
+    for branch in branches:
+        var children = branch.get_node('children')
+
+        if children.get_child_count() == 0:
+            counter += branch.thickness * branch.length
+
+        else:
+            counter += getBranchValueIn(children)
+
+    return counter
