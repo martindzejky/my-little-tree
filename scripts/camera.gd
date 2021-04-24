@@ -4,6 +4,10 @@ class_name MainCamera
 export(float) var moveSpeed
 export(float) var zoomSpeed
 
+var movingCameraGrab = false
+var mouseGrabStart = Vector2()
+var cameraGrabStart = Vector2()
+
 func _process(delta):
 
     # get movement input

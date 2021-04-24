@@ -30,7 +30,7 @@ thickness = 1.5
 length = 8.0
 thickness = 2.0
 
-[node name="root" parent="roots/initial/children" index="0" instance=ExtResource( 2 )]
+[node name="root1" parent="roots/initial/children" index="0" instance=ExtResource( 2 )]
 rotation = 0.349066
 length = 4.0
 thickness = 1.5
@@ -39,6 +39,7 @@ thickness = 1.5
 
 [node name="rootGrowth" type="Node2D" parent="player"]
 script = ExtResource( 3 )
+rootPlaceholderObject = ExtResource( 2 )
 
 [editable path="branches/trunk"]
 

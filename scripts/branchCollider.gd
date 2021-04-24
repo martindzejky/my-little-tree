@@ -15,6 +15,7 @@ func _process(delta):
         shape = RectangleShape2D.new()
         $shape.set_shape(shape)
 
+
     shape.extents = Vector2(root.thickness / 2, root.length / 2)
 
 
@@ -24,8 +25,15 @@ func _on_collider_mouse_entered():
     assert(sprite is Sprite)
     sprite.modulate = Color.red
 
+    SelectedRoots.hoveredRoots.append(get_parent())
+
 
 func _on_collider_mouse_exited():
     var sprite = get_node(spriteToModulatePath) as Sprite
     assert(sprite is Sprite)
     sprite.modulate = Color.white
+
+
+    var i = SelectedRoots.hoveredRoots.find(get_parent())
+    if i >= 0:
+        SelectedRoots.hoveredRoots.remove(i)

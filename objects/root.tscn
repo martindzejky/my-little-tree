@@ -5,6 +5,7 @@
 
 [node name="root" instance=ExtResource( 1 )]
 growDirection = 1
+playerCanGrow = true
 
 [node name="sprite" parent="." index="0"]
 texture = ExtResource( 2 )

@@ -6,6 +6,9 @@ class_name Branch
 #  1 is for roots growing down
 export(int, -1, 1) var growDirection
 
+# if true, the player can grow this branch
+export(bool) var playerCanGrow = false
+
 # how long is the branch, this might change in time
 export(float) var length
 
