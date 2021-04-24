@@ -14,6 +14,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/branch.gd"
 }, {
+"base": "Branch",
+"class": "GrowingBranch",
+"language": "GDScript",
+"path": "res://scripts/growingBranch.gd"
+}, {
 "base": "Node2D",
 "class": "MainCamera",
 "language": "GDScript",
@@ -26,6 +31,7 @@ _global_script_classes=[ {
 } ]
 _global_script_class_icons={
 "Branch": "",
+"GrowingBranch": "",
 "MainCamera": "",
 "TreeConstants": ""
 }

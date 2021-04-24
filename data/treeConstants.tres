@@ -19,3 +19,5 @@ maxGrowthLength = 10.0
 maxGrowthAngle = 40.0
 maxBranchChildren = 2.0
 minRotationDifference = 20.0
+branchGrowth = 0.3
+branchSpawnChance = 0.001

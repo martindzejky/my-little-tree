@@ -48,7 +48,7 @@ func updatePosition():
 
 func updateThickness():
     # calculate the thickness based on children
-    thickness = 1.5
+    thickness = 1.2
     for childBranch in $children.get_children():
         # super HACK to avoid taking placeholders into account
         if childBranch.has_node('placeholder'):
