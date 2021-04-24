@@ -8,11 +8,30 @@
 [node name="branches" type="Node2D" parent="."]
 
 [node name="trunk" parent="branches" instance=ExtResource( 1 )]
-length = 15.0
-thickness = 4.0
+length = 12.0
+thickness = 3.0
+
+[node name="branch" parent="branches/trunk/children" index="0" instance=ExtResource( 1 )]
+rotation = 0.349066
+length = 6.0
+thickness = 2.0
+
+[node name="branch2" parent="branches/trunk/children" index="1" instance=ExtResource( 1 )]
+rotation = -0.523599
+length = 4.0
+thickness = 1.5
 
 [node name="roots" type="Node2D" parent="."]
 
 [node name="initial" parent="roots" instance=ExtResource( 2 )]
 length = 8.0
 thickness = 2.0
+
+[node name="root" parent="roots/initial/children" index="0" instance=ExtResource( 2 )]
+rotation = 0.349066
+length = 4.0
+thickness = 1.5
+
+[editable path="branches/trunk"]
+
+[editable path="roots/initial"]

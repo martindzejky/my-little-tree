@@ -11,3 +11,24 @@ export(float) var length
 
 # how big (thick) is the branch, this might change in time
 export(float) var thickness
+
+func _process(delta):
+    # update the relative position of this branch based on the length
+    # of the parent
+
+    var parent = get_parent()
+
+    # this should be the children node of the parent
+    if not parent:
+        return
+
+    parent = parent.get_parent()
+
+    # this should be the parent branch
+    if not parent:
+        return
+
+    if not parent as Branch:
+        return
+
+    position.y = parent.growDirection * parent.length
