@@ -1,8 +1,13 @@
 extends Node2D
 
+export(Resource) var treeData
+
 # placeholder root which is created while a new root
 # is grown
 export(PackedScene) var rootPlaceholderObject
+
+# root object to grown
+export(PackedScene) var rootObject
 
 var isGrowing = false
 var placeholder: Branch
@@ -31,8 +36,17 @@ func _process(delta):
         var targetDistance = get_global_mouse_position() - placeholder.global_position
 
         placeholder.global_rotation_degrees = rad2deg(targetDistance.angle()) - 90
-        placeholder.length = targetDistance.length()
-        placeholder.thickness = 1
+
+        # clamp the rotation degrees to prevent sharp turns
+        while placeholder.rotation_degrees > 360:
+            placeholder.rotation_degrees -= 360
+
+        placeholder.rotation_degrees = clamp(placeholder.rotation_degrees, -treeData.maxGrowthAngle, treeData.maxGrowthAngle)
+
+        placeholder.length = min(
+            targetDistance.length(),
+            placeholder.get_parent().get_parent().thickness * treeData.maxLengthFromThickness
+            )
 
 
 func createPlaceholder():
@@ -45,16 +59,67 @@ func createPlaceholder():
 
     assert(rootToGrowFrom is Branch, 'root to grow from is not a branch')
 
+    # can the player actually grow this branch?
     if not rootToGrowFrom.playerCanGrow:
         isGrowing = false
         return
 
+    var children = rootToGrowFrom.get_node('children')
+
+    # check if there's a space to grow another branch
+    if children.get_child_count() >= treeData.maxBranchChildren:
+        isGrowing = false
+        return
+
     placeholder = rootPlaceholderObject.instance()
-    rootToGrowFrom.get_node('children').add_child(placeholder)
+    children.add_child(placeholder)
+
+    # set the placeholder thickness
+    placeholder.thickness = clamp(
+        rootToGrowFrom.thickness * treeData.newRootThicknessMultiplier,
+        1,
+        children.get_child_count() + 1
+        )
 
 
 func createRootFromPlaceholder():
-    pass
+    # check the minimum length
+    if placeholder.length < treeData.minGrowthLength:
+        cancelPlaceholder()
+        isGrowing = false
+        return
+
+    # check that the rotation is "sufficently different" from existing roots to
+    # avoid overlapping roots
+    var parentChildren = placeholder.get_parent()
+    for child in parentChildren.get_children():
+        if child == placeholder:
+            continue
+
+        if abs(child.rotation_degrees - placeholder.rotation_degrees) < treeData.minRotationDifference:
+            cancelPlaceholder()
+            isGrowing = false
+            return
+
+    # delete the placeholder and create a proper root from it
+
+    var newRoot = rootObject.instance()
+    parentChildren.add_child(newRoot)
+
+    # copy the dimensions and orientation
+    newRoot.rotation_degrees = placeholder.rotation_degrees
+    newRoot.length = placeholder.length
+    newRoot.thickness = placeholder.thickness
+
+    # remove the placeholder
+    placeholder.queue_free()
+
+    # increase the thickness of the parent roots
+    var parent = newRoot.get_parent().get_parent()
+
+    while parent and parent is Branch:
+        parent.thickness *= treeData.parentRootThicknessMultiplier
+        parent = parent.get_parent().get_parent()
 
 
 func cancelPlaceholder():

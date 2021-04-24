@@ -6,7 +6,7 @@ export(NodePath) var spriteToModulatePath
 # of the branch
 func _process(delta):
     var root = get_parent()
-    assert(root is Branch, "branch sprite does not have branch as parent")
+    assert(root is Branch, "branch collider does not have branch as parent")
 
     $shape.position.y = root.length / 2 * root.growDirection
 
