@@ -57,7 +57,7 @@ func updatePosition():
     if not parent as Branch:
         return
 
-    position.y = parent.growDirection * parent.length
+    position.y = parent.get_node('end').position.y
 
 # this should be called by children of the branch
 func updateThickness():

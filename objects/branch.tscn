@@ -15,9 +15,9 @@ branchToSpawnFile = "res://objects/branch.tscn"
 [node name="collider" parent="." index="1"]
 collision_layer = 2
 
-[node name="leaves" type="Node2D" parent="." index="2"]
+[node name="leaves" type="Node2D" parent="end" index="0"]
 script = ExtResource( 3 )
-branchSpritePath = NodePath("../sprite")
+branchSpritePath = NodePath("../../sprite")
 
-[node name="sprite" type="Sprite" parent="leaves" index="0"]
+[node name="sprite" type="Sprite" parent="end/leaves" index="0"]
 texture = ExtResource( 2 )

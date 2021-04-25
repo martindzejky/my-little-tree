@@ -46,7 +46,8 @@ func _process(delta):
         placeholder.rotation_degrees = clamp(placeholder.rotation_degrees, -treeData.maxGrowthAngle, treeData.maxGrowthAngle)
 
         # prevent roots from growing upwards
-        placeholder.global_rotation_degrees = clamp(placeholder.global_rotation_degrees, -90, 90)
+        # DISABLED to see what happens...
+        # placeholder.global_rotation_degrees = clamp(placeholder.global_rotation_degrees, -90, 90)
 
         placeholder.length = min(
             targetDistance.length(),
