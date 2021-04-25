@@ -15,9 +15,19 @@ export(float) var length
 # how big (thick) is the branch, this might change in time
 export(float) var thickness
 
+
+func _enter_tree():
+    updateThickness()
+
+    # update the thickness of all parents
+    var parent = get_parent().get_parent()
+    while parent and parent as Branch:
+        parent.updateThickness()
+        parent = parent.get_parent().get_parent()
+
+
 func _process(delta):
     updatePosition()
-    updateThickness()
 
 
 # checks whether this is last branch in the tree
@@ -46,12 +56,17 @@ func updatePosition():
 
     position.y = parent.growDirection * parent.length
 
+# this should be called by children of the branch
 func updateThickness():
     # calculate the thickness based on children
-    thickness = 1.2
+    var newThickness = 1.2
+    var minThickness = 1
     for childBranch in $children.get_children():
         # super HACK to avoid taking placeholders into account
         if childBranch.has_node('placeholder'):
             continue
 
-        thickness += childBranch.thickness * 0.5
+        newThickness += childBranch.thickness * 0.5
+        minThickness = max(minThickness, childBranch.thickness)
+
+    thickness = max(thickness, max(newThickness, minThickness))
