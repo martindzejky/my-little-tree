@@ -41,8 +41,6 @@ _global_script_class_icons={
 config/name="My Little Tree"
 config/description="Ludum Dare #48 game about growing a tree."
 run/main_scene="res://scenes/main.tscn"
-run/disable_stdout=true
-run/disable_stderr=true
 boot_splash/use_filter=false
 config/icon="res://sprites/icon.png"
 
@@ -137,6 +135,7 @@ move_grab={
 2d_physics/layer_3="root"
 2d_physics/layer_4="water"
 2d_physics/layer_5="leaves"
+2d_physics/layer_6="rocks"
 
 [node]
 

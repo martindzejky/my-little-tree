@@ -22,11 +22,6 @@ export(float) var thickness
 func _enter_tree():
     updateThickness()
 
-    # update the thickness of all parents
-    var parent = get_parent().get_parent()
-    while parent and parent as Branch:
-        parent.updateThickness()
-        parent = parent.get_parent().get_parent()
 
 
 func _process(delta):
@@ -72,4 +67,25 @@ func updateThickness():
         newThickness += childBranch.thickness * 0.5
         minThickness = max(minThickness, childBranch.thickness)
 
-    thickness = max(thickness, max(newThickness, minThickness))
+    newThickness = max(thickness, max(newThickness, minThickness))
+
+    if abs(thickness - newThickness) > 0.001:
+        thickness = newThickness
+
+        # TWEENING!!!
+        $tween.stop_all()
+        $tween.interpolate_property(
+            self, 'thickness',
+            newThickness * 1.2, newThickness,
+            0.2, # duration
+            Tween.TRANS_LINEAR, Tween.EASE_OUT
+        )
+        $tween.start()
+
+    # ping the parent to update its thickness after a delay,
+    # which creates a nice animation
+    yield(get_tree().create_timer(0.1), "timeout")
+
+    var parent = get_parent().get_parent()
+    if parent and parent as Branch:
+        parent.updateThickness()

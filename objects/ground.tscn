@@ -41,10 +41,17 @@ defaultChance = 10
 generationStart = Vector2( -25, 25 )
 generationEnd = Vector2( 25, 26 )
 
-[node name="rocks" type="TileMap" parent="tiles"]
+[node name="rocks-collider" type="Area2D" parent="tiles"]
+collision_layer = 32
+collision_mask = 4
+
+[node name="rocks" type="TileMap" parent="tiles/rocks-collider"]
 tile_set = ExtResource( 2 )
 cell_size = Vector2( 8, 8 )
 cell_custom_transform = Transform2D( 8, 0, 0, 8, 0, 0 )
+collision_use_parent = true
+collision_layer = 32
+collision_mask = 6
 format = 1
 script = ExtResource( 3 )
 treeData = ExtResource( 5 )
