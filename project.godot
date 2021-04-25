@@ -25,16 +25,6 @@ _global_script_classes=[ {
 "path": "res://scripts/camera.gd"
 }, {
 "base": "Resource",
-"class": "TileOption",
-"language": "GDScript",
-"path": "res://scripts/tileOption.gd"
-}, {
-"base": "Resource",
-"class": "TileOptions",
-"language": "GDScript",
-"path": "res://scripts/tileOptions.gd"
-}, {
-"base": "Resource",
 "class": "TreeConstants",
 "language": "GDScript",
 "path": "res://scripts/treeConstants.gd"
@@ -43,8 +33,6 @@ _global_script_class_icons={
 "Branch": "",
 "GrowingBranch": "",
 "MainCamera": "",
-"TileOption": "",
-"TileOptions": "",
 "TreeConstants": ""
 }
 

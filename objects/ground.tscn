@@ -1,17 +1,20 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://sprites/ground.png" type="Texture" id=1]
 [ext_resource path="res://tiles/ground.tres" type="TileSet" id=2]
 [ext_resource path="res://scripts/tiles.gd" type="Script" id=3]
-[ext_resource path="res://data/groundTileOptions.tres" type="Resource" id=4]
+[ext_resource path="res://scripts/background.gd" type="Script" id=4]
+[ext_resource path="res://data/treeConstants.tres" type="Resource" id=5]
 
 [node name="ground" type="Node2D"]
 
 [node name="background" type="Sprite" parent="."]
 texture = ExtResource( 1 )
-offset = Vector2( 4, 40 )
+offset = Vector2( 0, 40 )
 region_enabled = true
 region_rect = Rect2( 0, 0, 40, 80 )
+script = ExtResource( 4 )
+treeData = ExtResource( 5 )
 
 [node name="tiles" type="Node2D" parent="."]
 
@@ -21,6 +24,6 @@ cell_size = Vector2( 8, 8 )
 cell_custom_transform = Transform2D( 8, 0, 0, 8, 0, 0 )
 format = 1
 script = ExtResource( 3 )
-tileOptions = ExtResource( 4 )
-generationStart = Vector2( -2, 0 )
-generationEnd = Vector2( 2, 9 )
+treeData = ExtResource( 5 )
+tileOptionChances = [ 20, 1, 1, 1, 1, 1 ]
+tileOptionNames = [ "", "dirt1", "dirt2", "gravel1", "gravel2", "dirtGravel" ]

@@ -1,21 +1,29 @@
 extends TileMap
 
-export(Resource) var tileOptions
+export(Resource) var treeData
+
+export(Array, int) var tileOptionChances
+export(Array, String) var tileOptionNames
 
 var tileOptionsSumChance = 0
 
-export(Vector2) var generationStart
-export(Vector2) var generationEnd
+var generationStart: Vector2
+var generationEnd: Vector2
 
 func _ready():
-    for option in tileOptions.chances:
-        tileOptionsSumChance += option.chance
+    generationStart = Vector2(-treeData.groundWidth / 32, 0)
+    generationEnd = Vector2(treeData.groundWidth / 32, treeData.groundHeight / 8)
+
+    assert(tileOptionChances.size() == tileOptionNames.size(), 'tile option size do not match')
+
+    for option in tileOptionChances:
+        tileOptionsSumChance += option
 
     assert(tileOptionsSumChance > 0, 'tile options sum chance is not more than 0, selection logic math will not work')
 
     # generate tiles
-    for x in range(generationStart.x, generationEnd.x + 1):
-        for y in range(generationStart.y, generationEnd.y + 1):
+    for x in range(generationStart.x, generationEnd.x):
+        for y in range(generationStart.y, generationEnd.y):
             generateTile(x, y)
 
 func generateTile(x: int, y: int):
@@ -25,8 +33,8 @@ func generateTile(x: int, y: int):
     var selected
 
     while s > 0:
-        selected = tileOptions.chances[i].name
-        s -= tileOptions.chances[i].chance
+        selected = tileOptionNames[i]
+        s -= tileOptionChances[i]
         i += 1
 
     if not selected:

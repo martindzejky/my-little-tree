@@ -32,3 +32,7 @@ export(float) var branchGrowthChance
 export(float) var branchGrowthAmountMin
 export(float) var branchGrowthAmountMax
 export(float) var branchSpawnChance
+
+# GROUND
+export(int) var groundWidth
+export(int) var groundHeight
