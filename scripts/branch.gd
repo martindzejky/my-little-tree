@@ -19,9 +19,12 @@ export(float) var length
 export(float) var thickness
 
 
+var branchParents = 0
+
+
 func _enter_tree():
     updateThickness()
-
+    updateBranchParents()
 
 
 func _process(delta):
@@ -94,3 +97,8 @@ func updateThickness():
     var parent = get_parent().get_parent()
     if parent and parent as Branch:
         parent.updateThickness()
+
+func updateBranchParents():
+    var parent = get_parent().get_parent()
+    if parent and parent as Branch:
+        branchParents = parent.branchParents + 1
