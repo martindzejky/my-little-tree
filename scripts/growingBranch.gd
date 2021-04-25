@@ -19,8 +19,12 @@ func grow(delta):
     if maxGrown:
         return
 
+    # base the chance on the current stability
+    var chance = delta * treeData.branchGrowthChance
+    chance = lerp(0, chance, MyTree.currentStability / 100)
+
     # small chance to grow the branch
-    if randf() < delta * treeData.branchGrowthChance:
+    if randf() < chance:
         length += rand_range(treeData.branchGrowthAmountMin, treeData.branchGrowthAmountMax)
 
     if length > treeData.maxGrowthLength:
@@ -38,13 +42,16 @@ func spawnNewBranches(delta):
         maxChildren = true
         return
 
+    # base the chance on the current stability
+    var chance = delta * treeData.branchSpawnChance
+    chance = lerp(0, chance, MyTree.currentStability / 100)
+
     # decrease the chance even further if there's already a child
-    var chanceMultiplier = 1
     if existingChildren > 0:
-        chanceMultiplier = 0.8
+        chance *= 0.8
 
     # small chance to spawn a new branch
-    if randf() < delta * treeData.branchSpawnChance * chanceMultiplier:
+    if randf() < chance:
         var newBranch = load(branchToSpawnFile).instance() as Branch
 
 

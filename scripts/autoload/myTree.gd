@@ -16,13 +16,16 @@ var currentWater = 0
 var maxWater = 0
 
 # STABILITY is calculated based on the branches and the roots.
+# It is always between 0-100 as a percentage. The tree will not
+# grow if the stability is too low.
 
 var currentStability = 0
-var maxStability = 0
+var maxStability = 100
 
 # MAGIC numbers of updating the resources
 
 var treeData: Resource
+var initialized = false
 
 func _init():
     treeData = preload('res://data/treeConstants.tres')
@@ -40,7 +43,6 @@ func _process(delta):
     # calculate maximum values
     maxEnergy = getBranchValueIn(branches) * treeData.maxEnergyPerBranch + getBranchValueIn(roots) * treeData.maxEnergyPerRoot
     maxWater = getBranchValueIn(branches) * treeData.maxWaterPerBranch + getBranchValueIn(roots) * treeData.maxWaterPerRoot
-    maxStability = getBranchValueIn(roots) * treeData.maxStabilityPerRoot
 
     # update current values
 
@@ -49,17 +51,24 @@ func _process(delta):
         currentEnergy + energyGain,
         0, maxEnergy)
 
-    # TODO: water
+    currentWater = clamp(
+        currentWater,
+        0, maxWater
+       )
 
-    var stabilityGain = \
-        delta * \
-            getBranchValueIn(branches) * treeData.stabilityGainPerBranch \
-        + delta * \
-            getBranchValueIn(roots) * treeData.stabilityGainPerRoot
+    var stability = \
+          getBranchValueIn(branches) * treeData.stabilityPerBranch \
+        + getBranchValueIn(roots) * treeData.stabilityPerRoot
 
     currentStability = clamp(
-        currentStability + stabilityGain,
+        stability,
         0, maxStability)
+
+    # initialize resources to their max values
+    if not initialized:
+        initialized = true
+        currentEnergy = maxEnergy
+        currentWater = maxWater
 
 
 func getBranchValueIn(node: Node2D) -> float:

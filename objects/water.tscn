@@ -1,9 +1,26 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://sprites/water-tiles.png" type="Texture" id=1]
+[ext_resource path="res://scripts/randomSprite.gd" type="Script" id=2]
+[ext_resource path="res://scripts/water.gd" type="Script" id=3]
+
+[sub_resource type="CircleShape2D" id=1]
+radius = 4.0
 
 [node name="water" type="Node2D"]
+script = ExtResource( 3 )
+minWater = 100
+maxWater = 400
 
 [node name="sprite" type="Sprite" parent="."]
 texture = ExtResource( 1 )
 hframes = 5
+script = ExtResource( 2 )
+
+[node name="collider" type="Area2D" parent="."]
+collision_layer = 2147483656
+collision_mask = 4
+
+[node name="shape" type="CollisionShape2D" parent="collider"]
+shape = SubResource( 1 )
+[connection signal="area_entered" from="collider" to="." method="_on_collider_area_entered"]

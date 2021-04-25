@@ -127,6 +127,14 @@ move_grab={
  ]
 }
 
+[layer_names]
+
+2d_physics/layer_1="default"
+2d_physics/layer_2="branch"
+2d_physics/layer_3="root"
+2d_physics/layer_4="water"
+2d_physics/layer_5="leaves"
+
 [rendering]
 
 environment/default_clear_color=Color( 0.768627, 0.866667, 0.913725, 1 )

@@ -14,9 +14,8 @@ export(float) var maxWaterPerRoot
 
 # STABILITY
 
-export(float) var maxStabilityPerRoot
-export(float) var stabilityGainPerBranch
-export(float) var stabilityGainPerRoot
+export(float) var stabilityPerBranch
+export(float) var stabilityPerRoot
 
 # ROOT GROWTH
 
