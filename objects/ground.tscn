@@ -80,4 +80,4 @@ generationEnd = Vector2( 25, 0 )
 script = ExtResource( 10 )
 treeData = ExtResource( 5 )
 waterObject = ExtResource( 11 )
-spawnChance = 0.03
+spawnChance = 0.05

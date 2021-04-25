@@ -25,7 +25,13 @@ func grow(delta):
 
     # small chance to grow the branch
     if randf() < chance:
-        length += rand_range(treeData.branchGrowthAmountMin, treeData.branchGrowthAmountMax)
+        if MyTree.currentEnergy >= treeData.requiredEnergyForBranchGrowth \
+            and MyTree.currentWater >= treeData.requiredWaterForBranchGrowth:
+
+            length += rand_range(treeData.branchGrowthAmountMin, treeData.branchGrowthAmountMax)
+
+            MyTree.currentEnergy -= treeData.requiredEnergyForBranchGrowth
+            MyTree.currentWater -= treeData.requiredWaterForBranchGrowth
 
     if length > treeData.maxGrowthLength:
         length = treeData.maxGrowthLength
@@ -51,32 +57,44 @@ func spawnNewBranches(delta):
         chance *= 0.8
 
     # small chance to spawn a new branch
-    if randf() < chance:
-        var newBranch = load(branchToSpawnFile).instance() as Branch
+    if randf() > chance:
+        return
+
+    # check the resources
+    if MyTree.currentEnergy < treeData.requiredEnergyForBranchChild \
+        or MyTree.currentWater < treeData.requiredWaterForBranchChild:
+
+        return
+
+    var newBranch = load(branchToSpawnFile).instance() as Branch
 
 
-        # initialize length and rotation
-        newBranch.length = treeData.minGrowthLength
+    # initialize length and rotation
+    newBranch.length = treeData.minGrowthLength
 
-        # avoid overlapping branches when generating the rotation
-        var try = 10
-        while true:
-            # limit retries
-            if try < 0:
-                newBranch.queue_free()
-                return
+    # avoid overlapping branches when generating the rotation
+    var try = 10
+    while true:
+        # limit retries
+        if try < 0:
+            newBranch.queue_free()
+            return
 
-            try -= 1
+        try -= 1
 
-            newBranch.rotation_degrees = rand_range(-treeData.maxGrowthAngle, treeData.maxGrowthAngle)
+        newBranch.rotation_degrees = rand_range(-treeData.maxGrowthAngle, treeData.maxGrowthAngle)
 
-            var stop = true
+        var stop = true
 
-            for child in $children.get_children():
-                if abs(child.rotation_degrees - newBranch.rotation_degrees) < treeData.minRotationDifference:
-                    stop = false
+        for child in $children.get_children():
+            if abs(child.rotation_degrees - newBranch.rotation_degrees) < treeData.minRotationDifference:
+                stop = false
 
-            if stop:
-                break
+        if stop:
+            break
 
-        $children.add_child(newBranch)
+
+    MyTree.currentEnergy -= treeData.requiredEnergyForBranchChild
+    MyTree.currentWater -= treeData.requiredWaterForBranchChild
+
+    $children.add_child(newBranch)
