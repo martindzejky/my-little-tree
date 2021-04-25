@@ -7,22 +7,35 @@ export(Resource) var treeData
 # object to spawn when growing new branches
 export (String, FILE) var branchToSpawnFile
 
+var maxGrown = false
+var maxChildren = false
+
 func _process(delta):
     grow(delta)
     spawnNewBranches(delta)
 
 
 func grow(delta):
+    if maxGrown:
+        return
+
     # small chance to grow the branch
     if randf() < delta * treeData.branchGrowthChance:
         length += rand_range(treeData.branchGrowthAmountMin, treeData.branchGrowthAmountMax)
-        length = min(length, treeData.maxGrowthLength)
+
+    if length > treeData.maxGrowthLength:
+        length = treeData.maxGrowthLength
+        maxGrown = true
 
 
 func spawnNewBranches(delta):
+    if maxChildren:
+        return
+
     # respect the max children limit
     var existingChildren = $children.get_child_count()
     if existingChildren >= treeData.maxBranchChildren:
+        maxChildren = true
         return
 
     # decrease the chance even further if there's already a child
@@ -39,7 +52,15 @@ func spawnNewBranches(delta):
         newBranch.length = treeData.minGrowthLength
 
         # avoid overlapping branches when generating the rotation
+        var try = 10
         while true:
+            # limit retries
+            if try < 0:
+                newBranch.queue_free()
+                return
+
+            try -= 1
+
             newBranch.rotation_degrees = rand_range(-treeData.maxGrowthAngle, treeData.maxGrowthAngle)
 
             var stop = true
