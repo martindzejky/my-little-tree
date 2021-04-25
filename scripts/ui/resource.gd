@@ -8,4 +8,5 @@ func _process(delta):
     var currentValue = int(MyTree.get(resourceName))
     var maxValue = int(MyTree.get(resourceMaxName))
 
-    $container/value.text = String(currentValue) + ' / ' + String(maxValue)
+    $container/meter.value = currentValue
+    $container/meter.max_value = maxValue
