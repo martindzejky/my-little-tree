@@ -12,7 +12,7 @@ growDirection = -1
 treeData = ExtResource( 5 )
 branchToSpawnFile = "res://objects/branch.tscn"
 
-[node name="collider" parent="." index="1"]
+[node name="collider" parent="." index="2"]
 collision_layer = 2
 
 [node name="leaves" type="Node2D" parent="end" index="0"]

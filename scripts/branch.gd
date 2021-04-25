@@ -27,6 +27,11 @@ func _enter_tree():
 func _process(delta):
     updatePosition()
 
+    # destroy the branch if it overlaps the ground
+    if $end.global_position.y * growDirection < 0:
+        if not has_node('placeholder'):
+            queue_free()
+
 
 # checks whether this is last branch in the tree
 func isLeaf() -> bool:
