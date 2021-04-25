@@ -9,16 +9,17 @@ export (String, FILE) var branchToSpawnFile
 
 func _process(delta):
     grow(delta)
-    spawnNewBranches()
+    spawnNewBranches(delta)
 
 
 func grow(delta):
-    # slowly grow the branch
-    if length < treeData.maxGrowthLength:
-        length += delta * treeData.branchGrowth
+    # small chance to grow the branch
+    if randf() < delta * treeData.branchGrowthChance:
+        length += rand_range(treeData.branchGrowthAmountMin, treeData.branchGrowthAmountMax)
+        length = min(length, treeData.maxGrowthLength)
 
 
-func spawnNewBranches():
+func spawnNewBranches(delta):
     # respect the max children limit
     var existingChildren = $children.get_child_count()
     if existingChildren >= treeData.maxBranchChildren:
@@ -30,7 +31,7 @@ func spawnNewBranches():
         chanceMultiplier = 0.8
 
     # small chance to spawn a new branch
-    if randf() < treeData.branchSpawnChance * chanceMultiplier / 1000:
+    if randf() < delta * treeData.branchSpawnChance * chanceMultiplier:
         var newBranch = load(branchToSpawnFile).instance() as Branch
 
 
