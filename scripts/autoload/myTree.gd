@@ -67,6 +67,10 @@ func getBranchValueIn(node: Node2D) -> float:
     var counter = 0.0
 
     for branch in branches:
+        # super HACK to ignore placeholder branches
+        if branch.has_node('placeholder'):
+            continue
+
         counter += branch.thickness * branch.length
         counter += getBranchValueIn(branch.get_node('children'))
 
@@ -78,6 +82,10 @@ func getLeafValueIn(node: Node2D) -> float:
     var counter = 0.0
 
     for branch in branches:
+        # super HACK to ignore placeholder branches
+        if branch.has_node('placeholder'):
+            continue
+
         var children = branch.get_node('children')
 
         if children.get_child_count() == 0:
