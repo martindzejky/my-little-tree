@@ -69,5 +69,7 @@ format = 1
 script = ExtResource( 3 )
 emptyChance = 5
 defaultChance = 10
+overridesNames = [ "flower" ]
+overridesChances = [ 1 ]
 generationStart = Vector2( -25, -1 )
 generationEnd = Vector2( 25, 0 )
