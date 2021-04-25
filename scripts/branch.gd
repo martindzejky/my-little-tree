@@ -20,15 +20,22 @@ export(float) var thickness
 
 
 var branchParents = 0
+var originalRotation
 
 
 func _enter_tree():
     updateThickness()
     updateBranchParents()
 
+    originalRotation = rotation_degrees
+
 
 func _process(delta):
     updatePosition()
+
+    # DISABLED because I did not have enough time to tweak this
+    # animation and it looked weird...
+    # animateSwayInWind()
 
     # destroy the branch if it overlaps the ground
     if $end.global_position.y * growDirection < 0:
@@ -39,6 +46,19 @@ func _process(delta):
 # checks whether this is last branch in the tree
 func isLeaf() -> bool:
     return $children.get_child_count() == 0
+
+
+func animateSwayInWind():
+    # only sway branches above ground
+    if growDirection >= 0:
+        return
+
+    var timeConstant = (OS.get_ticks_msec() as float) / 1000
+
+    # delay branches further up the tree
+    timeConstant -= branchParents * 1.5
+
+    rotation_degrees = originalRotation + 2 * sin(timeConstant)
 
 
 func updatePosition():
