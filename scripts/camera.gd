@@ -30,9 +30,9 @@ func _process(delta):
 
 func _input(event):
     if event.is_action('zoom_in'):
-        var newZoom = clamp($camera.zoom.x / zoomSpeed, 0.01, 0.5)
+        var newZoom = clamp($camera.zoom.x / zoomSpeed, 0.01, 0.4)
         $camera.zoom = Vector2(newZoom, newZoom)
 
     if event.is_action('zoom_out'):
-        var newZoom = clamp($camera.zoom.x * zoomSpeed, 0.01, 0.5)
+        var newZoom = clamp($camera.zoom.x * zoomSpeed, 0.01, 0.4)
         $camera.zoom = Vector2(newZoom, newZoom)

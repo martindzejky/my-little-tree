@@ -2,22 +2,30 @@ extends TileMap
 
 export(Resource) var treeData
 
-export(Array, int) var tileOptionChances
-export(Array, String) var tileOptionNames
+export(int) var emptyChance
+export(int) var defaultChance
+
+# this would have been much easier if a custom resource could be exported...
+export(Array, String) var overridesNames
+export(Array, int) var overridesChances
 
 var tileOptionsSumChance = 0
 
-var generationStart: Vector2
-var generationEnd: Vector2
+export(Vector2) var generationStart: Vector2
+export(Vector2) var generationEnd: Vector2
 
 func _ready():
-    generationStart = Vector2(-treeData.groundWidth / 32, 0)
-    generationEnd = Vector2(treeData.groundWidth / 32, treeData.groundHeight / 8)
+    if treeData:
+        generationStart = Vector2(-treeData.groundWidth / 16, 0)
+        generationEnd = Vector2(treeData.groundWidth / 16, treeData.groundHeight / 8)
 
-    assert(tileOptionChances.size() == tileOptionNames.size(), 'tile option size do not match')
+    assert(overridesChances.size() == overridesNames.size(), 'overriddes sizes do not match')
 
-    for option in tileOptionChances:
-        tileOptionsSumChance += option
+    # calculate total chance
+    tileOptionsSumChance = emptyChance
+    for id in tile_set.get_tiles_ids():
+        var name = tile_set.tile_get_name(id)
+        tileOptionsSumChance += getChanceForTile(name)
 
     assert(tileOptionsSumChance > 0, 'tile options sum chance is not more than 0, selection logic math will not work')
 
@@ -30,15 +38,31 @@ func generateTile(x: int, y: int):
     # select a random tile
     var s = rand_range(0, tileOptionsSumChance)
     var i = 0
-    var selected
+    var selected = INVALID_CELL
 
-    while s > 0:
-        selected = tileOptionNames[i]
-        s -= tileOptionChances[i]
-        i += 1
-
-    if not selected:
+    if s < emptyChance:
+        # empty tile
         return
 
-    var tile = tile_set.find_tile_by_name(selected)
-    set_cell(x, y, tile)
+    s -= emptyChance
+
+    var ids = tile_set.get_tiles_ids()
+
+    while s > 0:
+        selected = ids[i]
+
+        var name = tile_set.tile_get_name(selected)
+
+        s -= getChanceForTile(name)
+        i += 1
+
+    set_cell(x, y, selected)
+
+func getChanceForTile(name: String) -> int:
+    for i in range(overridesNames.size()):
+        var prefix = overridesNames[i]
+
+        if name.begins_with(prefix):
+            return overridesChances[i]
+
+    return defaultChance
