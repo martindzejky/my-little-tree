@@ -14,28 +14,11 @@
 
 [node name="trunk" parent="branches" instance=ExtResource( 1 )]
 length = 12.0
-thickness = 3.0
-
-[node name="branch1" parent="branches/trunk/children" index="0" instance=ExtResource( 1 )]
-rotation = 0.436332
-length = 6.0
-thickness = 2.0
-
-[node name="branch2" parent="branches/trunk/children" index="1" instance=ExtResource( 1 )]
-rotation = -0.314159
-length = 4.0
-thickness = 1.5
 
 [node name="roots" type="Node2D" parent="."]
 
 [node name="initial" parent="roots" instance=ExtResource( 2 )]
 length = 8.0
-thickness = 2.0
-
-[node name="root1" parent="roots/initial/children" index="0" instance=ExtResource( 2 )]
-rotation = 0.349066
-length = 4.0
-thickness = 1.5
 
 [node name="player" type="Node2D" parent="."]
 
@@ -44,7 +27,3 @@ script = ExtResource( 3 )
 treeData = ExtResource( 5 )
 rootPlaceholderObject = ExtResource( 4 )
 rootObject = ExtResource( 2 )
-
-[editable path="branches/trunk"]
-
-[editable path="roots/initial"]

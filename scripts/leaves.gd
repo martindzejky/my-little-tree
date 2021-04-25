@@ -13,7 +13,7 @@ func _process(delta):
     $sprite.position.y = parent.growDirection * parent.length
 
     # rotate them so they are always straight
-    $sprite.rotation_degrees = -parent.rotation_degrees
+    $sprite.global_rotation_degrees = 0
 
     # copy the color of the branch sprite
     var branchSprite = get_node(branchSpritePath)
