@@ -9,9 +9,9 @@
 
 [node name="background" type="Sprite" parent="."]
 texture = ExtResource( 1 )
-offset = Vector2( 0, 4000 )
+offset = Vector2( 4, 40 )
 region_enabled = true
-region_rect = Rect2( 0, 0, 20000, 8000 )
+region_rect = Rect2( 0, 0, 40, 80 )
 
 [node name="tiles" type="Node2D" parent="."]
 
@@ -22,3 +22,5 @@ cell_custom_transform = Transform2D( 8, 0, 0, 8, 0, 0 )
 format = 1
 script = ExtResource( 3 )
 tileOptions = ExtResource( 4 )
+generationStart = Vector2( -2, 0 )
+generationEnd = Vector2( 2, 9 )
