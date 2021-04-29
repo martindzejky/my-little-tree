@@ -56,12 +56,12 @@ func _process(delta):
 
 
 func createPlaceholder():
-    # start growing root from the first selected root
+    # start growing root from the *last* selected root
     # TODO: this could check if there are multiple and select the bottom one
     #       but ain't nobody got time for dat!
 
     assert(SelectedRoots.hoveredRoots.size() > 0, 'no hovered roots in createPlaceholder')
-    var rootToGrowFrom = SelectedRoots.hoveredRoots[0] as Branch
+    var rootToGrowFrom = SelectedRoots.hoveredRoots[-1] as Branch
 
     assert(rootToGrowFrom is Branch, 'root to grow from is not a branch')
 
