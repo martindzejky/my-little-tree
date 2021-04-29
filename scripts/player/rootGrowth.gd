@@ -56,9 +56,9 @@ func _process(delta):
 
 
 func createPlaceholder():
-    # start growing root from the *last* selected root
-    # TODO: this could check if there are multiple and select the bottom one
-    #       but ain't nobody got time for dat!
+    # Start growing root from the *last* selected root object. This way,
+    # we always start from the object which should be under the mouse and
+    # the player wanted to select it.
 
     assert(SelectedRoots.hoveredRoots.size() > 0, 'no hovered roots in createPlaceholder')
     var rootToGrowFrom = SelectedRoots.hoveredRoots[-1] as Branch
