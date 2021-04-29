@@ -12,8 +12,8 @@ var generationStart: Vector2
 var generationEnd: Vector2
 
 func _ready():
-    generationStart = Vector2(-treeData.groundWidth / 16, 1)
-    generationEnd = Vector2(treeData.groundWidth / 16, treeData.groundHeight / 8)
+    generationStart = Vector2(-400 / 16, 1)
+    generationEnd = Vector2(400 / 16, 200 / 8)
 
     # generate tiles
     for x in range(generationStart.x, generationEnd.x):

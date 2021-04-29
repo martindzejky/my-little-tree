@@ -16,8 +16,8 @@ export(Vector2) var generationEnd: Vector2
 
 func _ready():
     if treeData:
-        generationStart = Vector2(-treeData.groundWidth / 16, 0)
-        generationEnd = Vector2(treeData.groundWidth / 16, treeData.groundHeight / 8)
+        generationStart = Vector2(-400 / 16, 0)
+        generationEnd = Vector2(400 / 16, 200 / 8)
 
     assert(overridesChances.size() == overridesNames.size(), 'overriddes sizes do not match')
 
