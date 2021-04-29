@@ -21,17 +21,10 @@ func grow(delta):
 
     # base the chance on the current stability
     var chance = delta * treeData.branchGrowthChance
-    chance = lerp(0, chance, MyTree.currentStability / 100)
 
     # small chance to grow the branch
     if randf() < chance:
-        if MyTree.currentEnergy >= treeData.requiredEnergyForBranchGrowth \
-            and MyTree.currentWater >= treeData.requiredWaterForBranchGrowth:
-
-            length += rand_range(treeData.branchGrowthAmountMin, treeData.branchGrowthAmountMax)
-
-            MyTree.currentEnergy -= treeData.requiredEnergyForBranchGrowth
-            MyTree.currentWater -= treeData.requiredWaterForBranchGrowth
+        length += rand_range(treeData.branchGrowthAmountMin, treeData.branchGrowthAmountMax)
 
     if length > treeData.maxGrowthLength:
         length = treeData.maxGrowthLength
@@ -50,7 +43,6 @@ func spawnNewBranches(delta):
 
     # base the chance on the current stability
     var chance = delta * treeData.branchSpawnChance
-    chance = lerp(0, chance, MyTree.currentStability / 100)
 
     # decrease the chance even further if there's already a child
     if existingChildren > 0:
@@ -58,12 +50,6 @@ func spawnNewBranches(delta):
 
     # small chance to spawn a new branch
     if randf() > chance:
-        return
-
-    # check the resources
-    if MyTree.currentEnergy < treeData.requiredEnergyForBranchChild \
-        or MyTree.currentWater < treeData.requiredWaterForBranchChild:
-
         return
 
     var newBranch = load(branchToSpawnFile).instance() as Branch
@@ -93,8 +79,5 @@ func spawnNewBranches(delta):
         if stop:
             break
 
-
-    MyTree.currentEnergy -= treeData.requiredEnergyForBranchChild
-    MyTree.currentWater -= treeData.requiredWaterForBranchChild
 
     $children.add_child(newBranch)

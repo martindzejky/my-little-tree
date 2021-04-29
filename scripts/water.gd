@@ -21,8 +21,6 @@ func _on_collider_area_entered(area):
     if not root.canCollectWater:
         return
 
-    MyTree.currentWater += waterAmount
-
     # after the water is collected, destroy it
     destroySelf()
 

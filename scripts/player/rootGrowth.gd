@@ -95,15 +95,6 @@ func createRootFromPlaceholder():
         isGrowing = false
         return
 
-    # check the resources
-    var totalArea = placeholder.length * placeholder.thickness
-
-    if MyTree.currentEnergy < treeData.requiredEnergyForRootGrowth * totalArea \
-        or MyTree.currentWater < treeData.requiredWaterForRootGrowth * totalArea:
-        cancelPlaceholder()
-        isGrowing = false
-        return
-
     # check that the rotation is "sufficently different" from existing roots to
     # avoid overlapping roots
     var parentChildren = placeholder.get_parent()
@@ -127,10 +118,6 @@ func createRootFromPlaceholder():
 
     # remove the placeholder
     placeholder.queue_free()
-
-    # remove resources
-    MyTree.currentEnergy -= treeData.requiredEnergyForRootGrowth * totalArea
-    MyTree.currentWater -= treeData.requiredWaterForRootGrowth * totalArea
 
 
 func cancelPlaceholder():

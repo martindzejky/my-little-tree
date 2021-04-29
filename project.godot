@@ -46,7 +46,6 @@ config/icon="res://sprites/icon.png"
 
 [autoload]
 
-MyTree="*res://scripts/autoload/myTree.gd"
 SelectedRoots="*res://scripts/autoload/selectedRoots.gd"
 
 [importer_defaults]
