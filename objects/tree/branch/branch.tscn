@@ -1,0 +1,25 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://data/treeConstants.tres" type="Resource" id=1]
+[ext_resource path="res://sprites/leaves.png" type="Texture" id=2]
+[ext_resource path="res://objects/tree/branch/growingBranch.gd" type="Script" id=3]
+[ext_resource path="res://objects/tree/branchable/branchable.tscn" type="PackedScene" id=4]
+[ext_resource path="res://objects/tree/branch/leaves.gd" type="Script" id=5]
+
+[node name="root" instance=ExtResource( 4 )]
+script = ExtResource( 3 )
+growDirection = -1
+treeData = ExtResource( 1 )
+branchToSpawnFile = "res://objects/tree/branch/branch.tscn"
+
+[node name="collider" parent="." index="2"]
+collision_layer = 2
+
+[node name="leaves" type="Node2D" parent="end" index="0"]
+script = ExtResource( 5 )
+branchSpritePath = NodePath("../../sprite")
+
+[node name="sprite" type="Sprite" parent="end/leaves" index="0"]
+texture = ExtResource( 2 )
+region_enabled = true
+region_rect = Rect2( 0, 0, 8, 8 )

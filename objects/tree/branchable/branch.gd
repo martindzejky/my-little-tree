@@ -1,4 +1,6 @@
 extends Node2D
+
+# TODO: rename to Branchable
 class_name Branch
 
 # direction in which the branch/root grows.

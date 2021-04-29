@@ -12,17 +12,17 @@ _global_script_classes=[ {
 "base": "Node2D",
 "class": "Branch",
 "language": "GDScript",
-"path": "res://scripts/branch.gd"
+"path": "res://objects/tree/branchable/branch.gd"
 }, {
 "base": "Branch",
 "class": "GrowingBranch",
 "language": "GDScript",
-"path": "res://scripts/growingBranch.gd"
+"path": "res://objects/tree/branch/growingBranch.gd"
 }, {
 "base": "Node2D",
 "class": "MainCamera",
 "language": "GDScript",
-"path": "res://scripts/camera.gd"
+"path": "res://objects/camera/camera.gd"
 }, {
 "base": "Resource",
 "class": "TreeConstants",
@@ -46,7 +46,7 @@ config/icon="res://sprites/icon.png"
 
 [autoload]
 
-SelectedRoots="*res://scripts/autoload/selectedRoots.gd"
+SelectedRoots="*res://autoload/selectedRoots.gd"
 
 [importer_defaults]
 
