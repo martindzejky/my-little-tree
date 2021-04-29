@@ -27,7 +27,7 @@ _global_script_classes=[ {
 "base": "Resource",
 "class": "TreeConstants",
 "language": "GDScript",
-"path": "res://scripts/treeConstants.gd"
+"path": "res://data/treeConstants.gd"
 } ]
 _global_script_class_icons={
 "Branch": "",
