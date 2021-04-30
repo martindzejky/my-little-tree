@@ -13,5 +13,3 @@ branchGrowthChance = 0.2
 branchGrowthAmountMin = 2.0
 branchGrowthAmountMax = 4.0
 branchSpawnChance = 0.06
-groundWidth = 400
-groundHeight = 200

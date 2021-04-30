@@ -114,7 +114,7 @@ func updateThickness():
 
     # ping the parent to update its thickness after a delay,
     # which creates a nice animation
-    yield(get_tree().create_timer(0.1), "timeout")
+    yield(get_tree().create_timer(0.01), "timeout")
 
     var parent = get_parent().get_parent()
     if parent and parent as Branch:
