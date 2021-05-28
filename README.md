@@ -1,5 +1,7 @@
 # My Little Tree
 
+![screenshot](screenshot.png)
+
 Grow your little tree. Control the tree’s roots to provide it with water and stability and watch the branches grow! Made in the amazing [Godot engine
 ](https://godotengine.org/) which I pretty much learned during this Ludum Dare.
 
